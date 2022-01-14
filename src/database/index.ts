@@ -1,3 +1,12 @@
-import { createConnection } from 'typeorm';
+/* eslint-disable no-return-await */
+import { Connection, createConnection, getConnectionOptions } from "typeorm";
 
-(async () => await createConnection())();
+export default async (host = "localhost"): Promise<Connection> => {
+  const defaultOptions = await getConnectionOptions();
+
+  return createConnection(
+    Object.assign(defaultOptions, {
+      host,
+    })
+  );
+};
